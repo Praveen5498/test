@@ -1,0 +1,70 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: docker.io/jenkins/jenkins    
+    ports:
+      - "8080:8080"
+    volumes:
+      - $PWD/jenkins_home:/var/jenkins_home
+    networks:
+      - net
+networks:
+  net:
+
+  sudo chown -R 1000:1000 $PWD/jenkins_home
+
+  docker run -d -p 8000:8080 -p 50000:50000 -v $PWD/jenkins_home:/var/jenkins_home --name jenkins jenkins
+
+http://192.168.56.102:8000/
+
+ docker run -p 8000:8080 -p 50000:50000 -v jenkins:/var/jenkins_home --name jenkin_d jenkins
+
+// docker run -p 8000:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home --name jenkins1 jenkins
+
+ docker volume ls
+ docker volume create jenkins
+08e02b46e6094fa38d1161c2a3fe1884
+
+docker exec  sleepy_noyce cat /var/jenkins_home/secrets/initialAdminPassword
+in to container
+------------
+ docker exec -ti jenkins bash---to container
+docker exec-ti jenkins4 /bin/sh
+ docker ps -a
+
+ docker rm <id>
+
+ docker volume  ls
+
+ docker run --name remote_host -it remote_host
+
+
+docker run -d --name jenkins docker.io/jenkins/jenkins
+
+
+docker start -a -i remote_host remote_host
+
+docker run -t -d --name my_debian debian// bgd
+
+docker run -p 8090:8080 -td jenkinsci/blueocean //chage port an run in bgd
+
+
+
+
+FROM centos:7
+
+RUN yum -y install openssh-server
+
+RUN useradd remote_user && \
+    echo "1234" | passwd remote_user  --stdin && \
+    && \
+    chmod 700 /home/remote_user/.ssh
+COPY remote-key.pub /home/remote_user/.ssh/authorized_keys
+
+RUN chown remote_user:remote_user -R /home/remote_user/.ssh/ && \
+    chmod 600 /home/remote_user/.ssh/authorized_keys
+
+CMD /usr/sbin/sshd -D
+
+
